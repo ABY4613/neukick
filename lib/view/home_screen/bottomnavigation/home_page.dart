@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shoe_store/utilits/color_const.dart';
+import 'package:shoe_store/view/details_screen/shoe_details_screen.dart';
 import 'package:shoe_store/view/widget/ShoeProductCard.dart';
 
 class ShoeProduct {
@@ -432,7 +433,17 @@ class _ShoeStoreHomePageState extends State<ShoeStoreHomePage> {
                     padding: EdgeInsets.only(left: 20),
                     itemCount: popularShoes.length,
                     itemBuilder: (context, index) {
-                      return ShoeProductCard(shoe: popularShoes[index]);
+                      return ShoeProductCard(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ShoeDetailsScreen( ),
+      ),
+    );
+  }, shoe: popularShoes[index],
+);
+
                     },
                   ),
                 ),

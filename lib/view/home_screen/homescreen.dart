@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoe_store/utilits/color_const.dart';
-import 'package:shoe_store/view/home_screen/bottomnavigation/explore_page.dart';
+import 'package:shoe_store/view/home_screen/bottomnavigation/fav_screen.dart';
+import 'package:shoe_store/view/home_screen/bottomnavigation/notification_screen.dart';
 import 'package:shoe_store/view/home_screen/bottomnavigation/home_page.dart';
 import 'package:shoe_store/view/home_screen/bottomnavigation/cart_screen.dart';
 import 'package:shoe_store/view/home_screen/bottomnavigation/profile_page.dart';
@@ -24,10 +25,11 @@ class _HomescreenState extends State<Homescreen> {
 
   late final List<Widget> _pages = [
     ShoeStoreHomePage(),
-    ExplorePage(),
+
+   FavouriteScreen(),
     CartScreen(), // Cart/Bag page
-    CartScreen(),
-    ProfilePage(),
+    NotificationsScreen(),
+    ProfileScreen(),
   ];
 
   @override

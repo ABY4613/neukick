@@ -5,34 +5,39 @@ import 'package:shoe_store/view/home_screen/bottomnavigation/home_page.dart';
 
 class ShoeProductCard extends StatelessWidget {
   final ShoeProduct shoe;
+  final VoidCallback? onTap;   // <— Added onTap
 
   const ShoeProductCard({
     super.key,
     required this.shoe,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 160,
-      margin: const EdgeInsets.only(right: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildImageSection(),
-          _buildProductDetails(),
-        ],
+    return GestureDetector(
+      onTap: onTap,   // <— Use here
+      child: Container(
+        width: 160,
+        margin: const EdgeInsets.only(right: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildImageSection(),
+            _buildProductDetails(),
+          ],
+        ),
       ),
     );
   }
@@ -48,13 +53,12 @@ class ShoeProductCard extends StatelessWidget {
           image: AssetImage(shoe.imageUrl),
           fit: BoxFit.cover,
         ),
-     //   color: ColorConstants.GREYSHADE4,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
       ),
-   );
+    );
   }
 
   // -----------------------------

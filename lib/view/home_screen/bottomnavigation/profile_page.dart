@@ -1,218 +1,209 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import 'package:shoe_store/utilits/color_const.dart';
-import 'package:shoe_store/view/auth/login_screen/login_screen.dart';
-import 'package:shoe_store/view/profile_screen/personal_information_screen.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  final String userName = "Hari"; // Replace with actual user data
-  final String userEmail = "hari@example.com"; // Replace with actual user data
-
-  Widget _buildProfileOption({
-    required String title,
-    required IconData icon,
-    required VoidCallback onTap,
-    bool showDivider = true,
-    Color? iconColor,
-  }) {
-    return Column(
-      children: [
-        ListTile(
-          leading: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: (iconColor ?? ColorConstants.PRIMARYCOLOR).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(
-              icon,
-              color: iconColor ?? ColorConstants.PRIMARYCOLOR,
-            ),
-          ),
-          title: Text(
-            title,
-            style: GoogleFonts.montserrat(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          trailing: const Icon(
-            Icons.arrow_forward_ios,
-            size: 16,
-            color: Colors.grey,
-          ),
-          onTap: onTap,
-        ),
-        if (showDivider)
-          const Divider(
-            height: 1,
-            indent: 70,
-          ),
-      ],
-    );
-  }
-
-  void _showLogoutDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            'Logout',
-            style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          content: Text(
-            'Are you sure you want to logout?',
-            style: GoogleFonts.montserrat(),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(
-                'Cancel',
-                style: GoogleFonts.montserrat(
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen()),
-                  (route) => false,
-                );
-              },
-              child: Text(
-                'Logout',
-                style: GoogleFonts.montserrat(
-                  color: Colors.red,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+      backgroundColor: const Color(0xFFF5F5F5),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        
+        title: const Text(
+          'Profile',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.edit_outlined, color: ColorConstants.PRIMARYCOLOR, size: 24),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(20),
-                child: Column(
+              Center(
+                child: Stack(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PersonalInformationScreen(),
-                          ),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 50,
-                            backgroundColor: ColorConstants.PRIMARYCOLOR,
-                            child: Text(
-                              userName[0].toUpperCase(),
-                              style: GoogleFonts.montserrat(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                    Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: ColorConstants.PRIMARYCOLOR.withOpacity(0.1),
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/images/shoe2.jpg',
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: ColorConstants.PRIMARYCOLOR.withOpacity(0.2),
+                              child: Icon(
+                                Icons.person,
+                                size: 60,
+                                color: ColorConstants.PRIMARYCOLOR,
                               ),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            userName,
-                            style: GoogleFonts.montserrat(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            userEmail,
-                            style: GoogleFonts.montserrat(
-                              fontSize: 16,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: ColorConstants.PRIMARYCOLOR,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 3),
+                        ),
+                        child: const Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                          size: 18,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              const Divider(height: 1),
               const SizedBox(height: 16),
-              _buildProfileOption(
-                title: 'Personal Information',
-                icon: Icons.person_outline,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PersonalInformationScreen(),
-                    ),
-                  );
-                },
-              ),
-              _buildProfileOption(
-                title: 'Privacy Policy',
-                icon: Icons.privacy_tip_outlined,
-                onTap: () {
-                  // Navigate to Privacy Policy screen
-                },
-              ),
-              _buildProfileOption(
-                title: 'Terms & Conditions',
-                icon: Icons.description_outlined,
-                onTap: () {
-                  // Navigate to Terms & Conditions screen
-                },
-              ),
-              _buildProfileOption(
-                title: 'FAQ & Help',
-                icon: Icons.help_outline,
-                onTap: () {
-                  // Navigate to FAQ & Help screen
-                },
-              ),
-              _buildProfileOption(
-                title: 'Logout',
-                icon: Icons.logout,
-                iconColor: Colors.red,
-                showDivider: false,
-                onTap: _showLogoutDialog,
-              ),
-              const SizedBox(height: 24),
-              Text(
-                'Version 1.0.0',
-                style: GoogleFonts.montserrat(
-                  color: Colors.grey,
-                  fontSize: 12,
+              const Center(
+                child: Text(
+                  'Alisson Becker',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
+              const Text(
+                'Full Name',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.03),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: const Row(
+                  children: [
+                    Text(
+                      'Alosson Becker',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Email Address',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.03),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: const Row(
+                  children: [
+                    Text(
+                      'alossonbecker@gmail.com',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Password',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.03),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: const Row(
+                  children: [
+                    Text(
+                      '••••••••',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black87,
+                        letterSpacing: 2,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
